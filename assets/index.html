@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="application-name" content="Jass Perfumes Admin">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="description" content="Perfume is magic. It’s mystery. We recreate the smell of a flower. Of wood. Of grass. We capture the essence of life. Liquefy it. We store memories. We make dreams,” he told her once. “What we do is a wonder, an art, and we have a responsibility to do it well">
+    <link rel="manifest" href="jass.webmanifest">
+    <!-- <link rel="icon" href="img/favicon.png" type="image/x-icon"> -->
+    <link rel="icon" sizes="16x16 32x32 48x48 200x200" href="img/jass.png">
+    <title>Jass Perfumes</title>
+
+    <!-- Fonts -->
+    <!-- <script src="https://use.fontawesome.com/ee68b0acc1.js"></script> -->
+    <link rel="stylesheet" href="fonts/Roboto.css">   
+    <link rel="stylesheet" href="fonts/Raleway.css">   
+    <link rel="stylesheet" href="fonts/Josefin.css">   
+    <link rel="stylesheet" href="css/font-awesome.min.css">   
+
+    <!-- Styles -->
+    <link type="text/css" rel="stylesheet" href="css/jass.css"/>
+  </head>
+
+<body id="app" onresize="resize()">
+  <!-- basic layout in here -->
+  <div class="wrapper">
+
+    <nav class="navigation">
+        <!-- <a class="navigation-title" href="#" id="homepage"> -->
+          <!-- <img src="img/jass-invert-cropped.jpg" class="jass-logo-top hidden"> -->
+          <img src="img/chamelee.png" class="jass-logo-top fade-in three">
+        <!-- </a> -->
+        <a class="hamburger hamburger--arrow hidden" aria-label="Menu" aria-controls="navigation">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </a>
+
+    </nav>
+  </div>
+
+  <div class="header-pad"></div>
+  <main>
+    <div class="jass-logo-container">
+      <div class="jass-logo-box fade-in fast"></div>
+    </div>
+
+    <div class="jass-login hidden"></div>
+    <div class="jass-main hidden"></div>
+
+    <div class="jass-options hidden">
+      <div class="option-row">
+        <span name="opt-f">Fragrances</span>
+        <span name="opt-s">Skincare</span>
+        <span name="opt-m">Merchandise</span>
+      </div>
+      <div class="option-row">
+        <span name="opt-b">Blog</span>
+        <span name="opt-a">Ambassadors</span>
+        <span name="opt-about">About</span>
+        <span name="opt-c">Contact</span>
+      </div>
+    </div>
+  </main>
+
+  <div id="slidemenu-div"></div>
+
+<div class="md-overlay"></div>
+  
+</body>
+<script src="jass.js"></script>
+</html>

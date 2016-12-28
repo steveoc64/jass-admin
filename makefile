@@ -10,6 +10,7 @@ get:
 	go get -u github.com/gopherjs/websocket
 	go get -u github.com/go-humble/temple
 	go get -u github.com/go-humble/form
+	go get -u github.com/go-humble/rest
 	go get -u github.com/go-humble/router
 	go get -u github.com/go-humble/locstor
 	go get -u github.com/steveoc64/formulate

@@ -3,6 +3,7 @@ package main
 import (
 	"./shared"
 	"github.com/go-humble/form"
+	"github.com/go-humble/rest"
 	"honnef.co/go/js/dom"
 )
 
@@ -15,18 +16,33 @@ func doLoginPage() {
 
 	doc.QuerySelector("#l-loginbtn").AddEventListener("click", false, func(evt dom.Event) {
 		evt.PreventDefault()
-		print("click on login btn")
-
-		username := doc.QuerySelector("#l-username").(*dom.HTMLInputElement).Value
-		passwd := doc.QuerySelector("#l-passwd").(*dom.HTMLInputElement).Value
-		print("username", username)
-		print("passwd", passwd)
 
 		loginCred := &shared.Login{}
-		if err := form.Bind(loginCred); err != nil {
-			print("bind error", err.Error())
+		f, err := form.Parse(doc.QuerySelector("form"))
+		if err != nil {
+			print("form parse error", err.Error())
 		} else {
-			print("login cred", loginCred)
+			f.Validate("username").Required()
+			f.Validate("passwd").Required()
+			if f.HasErrors() {
+				for _, err := range f.Errors {
+					print("Idiot: ", err.Error())
+				}
+			} else {
+				if err := f.Bind(loginCred); err != nil {
+					print("bind error", err.Error())
+				} else {
+					go func() {
+						print("login cred", loginCred)
+
+						conn := &rest.Client{ContentType: rest.ContentJSON}
+						if err = conn.Create(loginCred); err != nil {
+							print("rest err", err.Error())
+						}
+						print("after post, login cred =", loginCred.UID)
+					}()
+				}
+			}
 		}
 
 	})

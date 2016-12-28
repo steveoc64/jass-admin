@@ -25,10 +25,10 @@ func init() {
   <form>
     <fieldset>
       <label for="l-username">Name</label>
-      <input type="text" placeholder="User Name" id="l-username" autofocus>
+      <input name="username" type="text" placeholder="User Name" id="l-username" autofocus>
       <label for="l-passwd">Password</label>
       <!-- <input type="password" placeholder="Password" id="l-passwd"> -->
-      <input type="password" placeholder="Password" id="l-passwd">
+      <input name="passwd" type="password" placeholder="Password" id="l-passwd">
       <input class="button button-outline" type="button" value="Cancel" id="l-cancelbtn">
       <input class="button button" type="submit" value="Sign In" id="l-loginbtn">
     </fieldset>

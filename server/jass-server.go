@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"time"
 
+	"../shared"
+
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	_ "github.com/lib/pq"
@@ -29,6 +31,7 @@ func main() {
 	e.Static("/", "public")
 	e.GET("/api/items", getItems)
 	e.GET("/api/blog", getBlogs)
+	e.POST("/api/login", doLogin)
 
 	// Start up the mail server
 	if Config.MailServer == "" {
@@ -78,4 +81,18 @@ func main() {
 	}
 	println("World of Jass Server All Done")
 
+}
+
+func doLogin(c echo.Context) error {
+	println("got login post")
+
+	loginCred := &shared.Login{}
+	if err := c.Bind(loginCred); err != nil {
+		println("bind error", err.Error())
+	} else {
+		fmt.Printf("got login cred %v\n", *loginCred)
+		loginCred.UID = 666
+		return c.JSON(http.StatusOK, loginCred)
+	}
+	return nil
 }

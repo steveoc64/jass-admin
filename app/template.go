@@ -25,14 +25,14 @@ func init() {
   <form>
     <fieldset>
 
-      <label for="l-username">Name</label>
-      <input name="username" type="text" placeholder="User Name" id="l-username" autofocus>
+      <label>Name</label>
+      <input name="username" type="text" placeholder="User Name" autofocus>
 
-      <label for="l-passwd">Password</label>
-      <input name="passwd" type="password" placeholder="Password" id="l-passwd">
+      <label>Password</label>
+      <input name="passwd" type="password" placeholder="Password">
       
       <!-- <input class="button button-outline" type="button" value="Cancel" id="l-cancelbtn"> -->
-      <input class="button button" type="submit" value="Sign In" id="l-loginbtn">
+      <input id="sign-in" class="button button" type="submit" value="Sign In">
     </fieldset>
   </form>
 </div>
@@ -40,9 +40,84 @@ func init() {
 		panic(err)
 	}
 
-	if err = g.AddTemplate("main-page", `<div class="container">
+	if err = g.AddTemplate("main-page", `<div class="jass-model-image"></div>
+
+<div class="action-grid">
+	<div class="action__item" url="/blog">
+		<div class="action__title">Blogs</div>
+		<div class="action__icon"><i class="fa fa-hashtag fa-lg"></i></div>
+		<div class="action__text">
+			Edit Blog posts.
+		</div>
+	</div>
+	<div class="action__item" url="/category">
+		<div class="action__title">Categories</div>
+		<div class="action__icon"><i class="fa fa-cubes fa-lg"></i></div>
+		<div class="action__text">
+			Product Categories - Add / Edit / Delete.
+		</div>
+	</div>
+	<div class="action__item" url="/product">
+		<div class="action__title">Products</div>
+		<div class="action__icon"><i class="fa fa-cube fa-lg"></i></div>
+		<div class="action__text">
+			Product Details - Add / Edit / Delete.
+		</div>
+	</div>
+	<div class="action__item" url="/shipping">
+		<div class="action__title">Shipping</div>
+		<div class="action__icon"><i class="fa fa-ship fa-lg"></i></div>
+		<div class="action__text">
+			Shipping Constraints, Prices and Costs.
+		</div>
+	</div>
+	<div class="action__item" url="/orders">
+		<div class="action__title">Orders</div>
+		<div class="action__icon"><i class="fa fa-vcard fa-lg"></i></div>
+		<div class="action__text">
+			Sales Orders, Tracking, Reconcilliation Reports.
+		</div>
+	</div>
+	<div class="action__item" url="/newsletter">
+		<div class="action__title">Newsletter</div>
+		<div class="action__icon"><i class="fa fa-newspaper-o fa-lg"></i></div>
+		<div class="action__text">
+			Review and Generate Mailouts.
+		</div>
+	</div>
+	<div class="action__item" url="/referrer">
+		<div class="action__title">Referrers</div>
+		<div class="action__icon"><i class="fa fa-cloud-download fa-lg"></i></div>
+		<div class="action__text">
+			Incoming Traffic from Referring Sites.
+		</div>
+	</div>
+	<div class="action__item" url="/linkout">
+		<div class="action__title">LinksOut</div>
+		<div class="action__icon"><i class="fa fa-cloud-upload fa-lg"></i></div>
+		<div class="action__text">
+			Outgoing Traffic to External Sites.
+		</div>
+	</div>
+	<div class="action__item" url="/customer">
+		<div class="action__title">Customers</div>
+		<div class="action__icon"><i class="fa fa-user fa-lg"></i></div>
+		<div class="action__text">
+			Customer Database.
+		</div>
+	</div>
+	<div class="action__item" url="/users">
+		<div class="action__title">Admins</div>
+		<div class="action__icon"><i class="fa fa-user-secret fa-lg"></i></div>
+		<div class="action__text">
+			Admin Users.
+		</div>
+	</div>
+
+
 </div>
-`); err != nil {
+
+<div class="jass-logo-small"></div>`); err != nil {
 		panic(err)
 	}
 

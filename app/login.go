@@ -13,8 +13,9 @@ func doLoginPage() {
 
 	loadTemplate("login", ".jass-login", &Session)
 	fadeIn("jass-login")
+	doc.QuerySelector("[name=username]").(*dom.HTMLInputElement).Focus()
 
-	doc.QuerySelector("#l-loginbtn").AddEventListener("click", false, func(evt dom.Event) {
+	doc.QuerySelector("#sign-in").AddEventListener("click", false, func(evt dom.Event) {
 		evt.PreventDefault()
 
 		loginCred := &shared.Login{}

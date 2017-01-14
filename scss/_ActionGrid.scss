@@ -14,7 +14,7 @@
 	cursor: default;
 	border: 1px;
 	// background: #fff;
-	border-top: 1px solid $sbs-dksand;
+	// border-top: 1px solid $jass-green;
 }
 
 .todo-list {
@@ -44,7 +44,8 @@
 		background: $light2-mud;
 
 		.action__icon {
-			color: rgb(20, 134, 239);
+			// color: rgb(20, 134, 239);
+			color: rgb(22, 140, 55);
 		}
 	}
 
@@ -86,12 +87,24 @@
 	-webkit-transition: 0.6s;
 	transition: 0.6s;
 	border-radius: .4rem;	
-	border: 4px solid(#344);
-	font-size: 1.6rem;
-	height: 16rem;
+	border: 1px solid #efe;
+	font-size: 2rem;
+	height: 22rem;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#feffe8+0,d6dbbf+100;Wax+3D+%231 */
+	background: #feffe8; /* Old browsers */
+	background: -moz-linear-gradient(-45deg,  #feffe8 0%, #d6dbbf 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(-45deg,  #feffe8 0%,#d6dbbf 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(135deg,  #feffe8 0%,#d6dbbf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffe8', endColorstr='#d6dbbf',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 
-	&:focus {
-		background-color: rgba(255,255,255,0.6);
+	&:focus, &:active {
+		// background-color: rgba(255,255,255,0.6);
+		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fefefd+0,dce3c4+42,aebf76+100;Olive+3D+%231 */
+		background: #fefefd; /* Old browsers */
+		background: -moz-linear-gradient(-45deg,  #fefefd 0%, #dce3c4 42%, #aebf76 100%); /* FF3.6-15 */
+		background: -webkit-linear-gradient(-45deg,  #fefefd 0%,#dce3c4 42%,#aebf76 100%); /* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient(135deg,  #fefefd 0%,#dce3c4 42%,#aebf76 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefd', endColorstr='#aebf76',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 	}
 
 	// if they insist on using an iphone
@@ -103,18 +116,20 @@
 
 	.action__title {
 		transition: 0.6s;
-		font-size: 2.0rem;
+		font-size: 2.6rem;
 		width: 100%;
 		margin: 0 0 0.25em;
 		padding: 0 0 0.5em;
 		// color: $sbs-blue;
 		// color: rgba(74, 65, 56, 0.82);
-		color: $dark-mud;
+		color: rgba(50, 9, 101, 0.75);
 		border-top: 3px solid $sbs-box;
+		font-family: 'Josefin Sans', sans-serif;
+		font-weight: 800;
 
 		// phones
 		@media (max-height: 740px) {
-			font-size: 1.4rem;
+			font-size: 2.2rem;
 			padding: 0 0 0 0;
 			margin: 0 0 0 0;
 		}
@@ -142,7 +157,7 @@
 		text-align: justify;
 		padding: 1.2rem 3rem 0.3rem 3rem;
 		text-justify: inter-word;
-		border-top: 1px solid $sbs-dksand;
+		border-top: 1px solid $jass-green-solid;
 		height: 100%;
 
 		// if they insist on using an iphone
@@ -155,20 +170,22 @@
 
 	&:hover {
 		transition: 0.2s;
-		background-color: #ffef;
+		// background-color: #ffef;
+		// background-color: rgba(224, 232, 228, 0.68);
 		// outline: 1px solid $sbs-ltblue;
 		.action__title {
 			transition: 0.2s;
-			border-top: 3px solid $light-mud;
+			border-top: 3px solid $jass-green-solid;
 		}
 		.action__icon {
 			transition: 0.4s;
 			// color: $light-mud;
-			color: rgba(49, 46, 70, 0.86);
+			// color: rgba(49, 46, 70, 0.86);
+			color: rgb(21, 114, 125);
 			width: 100%;
 		}
 		.action__text {
-			border-bottom: 3px solid $light-mud;
+			border-bottom: 3px solid $jass-green-solid;
 		}
 	}
 

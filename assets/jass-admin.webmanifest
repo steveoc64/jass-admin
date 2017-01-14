@@ -1,12 +1,11 @@
 {
-  "short_name": "Jass",
-  "name": "Jass Perfumes",
+  "short_name": "JassAdmin",
+  "name": "Jass Admin",
   "icons": [
-    {
-      "src": "img/jass.png",
+    { "src": "img/jass.png",
       "sizes": "200x200",
       "type": "image/png"
-    },
+    }
   ],
   "start_url": "/",
   "display": "fullscreen",

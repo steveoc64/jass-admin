@@ -12,6 +12,6 @@ func main() {
 	initForms()
 	// initBurger() - dont initburger till login
 
-	doLoginPage()
+	// doLoginPage()
 	showTopMenu()
 }

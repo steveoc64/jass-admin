@@ -36,22 +36,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!--Let browser know website is optimized for mobile-->
-    <meta name="application-name" content="Jass Perfumes Admin">
+    <meta name="application-name" content="Jass Admin">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="description" content="Perfume is magic. It’s mystery. We recreate the smell of a flower. Of wood. Of grass. We capture the essence of life. Liquefy it. We store memories. We make dreams,” he told her once. “What we do is a wonder, an art, and we have a responsibility to do it well">
-    <link rel="manifest" href="jass.webmanifest">
+    <link rel="manifest" href="jass-admin.webmanifest">
     <!-- <link rel="icon" href="img/favicon.png" type="image/x-icon"> -->
     <link rel="icon" sizes="16x16 32x32 48x48 200x200" href="img/jass.png">
-    <title>Jass Perfumes</title>
+    <title>Jass Admin</title>
 
     <!-- Fonts -->
-    <!-- <script src="https://use.fontawesome.com/ee68b0acc1.js"></script> -->
-    <link rel="stylesheet" href="fonts/Roboto.css">   
-    <link rel="stylesheet" href="fonts/Raleway.css">   
-    <link rel="stylesheet" href="fonts/Josefin.css">   
     <link rel="stylesheet" href="css/font-awesome.min.css">   
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300|Raleway|Roboto:400" rel="stylesheet">
 
     <!-- Styles -->
     <link type="text/css" rel="stylesheet" href="css/jass.css"/>
@@ -80,31 +77,29 @@
     <div class="jass-logo-container">
       <div class="jass-logo-box fade-in fast"></div>
     </div>
-
+<!-- 
+    Yep, thats it. Thats the Grand Sum of all the HTML
+    in this entire website. Nothing more to see here ...
+ -->
     <div class="jass-login hidden"></div>
     <div class="jass-main hidden"></div>
+<!--     
+    The rest of the app is in Go-formatted templates that
+    are stored in the jass-admin.js bundle, and then 
+    compiled on the fly into the jass-main DIV above.
 
-    <div class="jass-options hidden">
-      <div class="option-row">
-        <span name="opt-f">Fragrances</span>
-        <span name="opt-s">Skincare</span>
-        <span name="opt-m">Merchandise</span>
-      </div>
-      <div class="option-row">
-        <span name="opt-b">Blog</span>
-        <span name="opt-a">Ambassadors</span>
-        <span name="opt-about">About</span>
-        <span name="opt-c">Contact</span>
-      </div>
-    </div>
+    Its all written in Go, and compiled into the jass-admin.js
+    bundle below. There is no other javascript involved
+    in this project.
+ -->
+
   </main>
-
   <div id="slidemenu-div"></div>
 
 <div class="md-overlay"></div>
   
 </body>
-<script src="jass.js"></script>
+<script src="jass-admin.js"></script>
 </html>
 
 <!-- 
@@ -116,7 +111,7 @@
                                 |___/                                                        
 
                                 https://ministryofcolour.net
-                                github.com/ministry-of-colour/jass
+                                github.com/ministry-of-colour/jass-admin
 
                                 Adelaide - Tokyo - Singapore
  -->

@@ -26,7 +26,7 @@ func doLoginPage() {
 			f.Validate("passwd").Required()
 			if f.HasErrors() {
 				for _, err := range f.Errors {
-					print("Idiot: ", err.Error())
+					print("err: ", err.Error())
 				}
 			} else {
 				if err := f.Bind(loginCred); err != nil {
@@ -38,8 +38,11 @@ func doLoginPage() {
 						conn := &rest.Client{ContentType: rest.ContentJSON}
 						if err = conn.Create(loginCred); err != nil {
 							print("rest err", err.Error())
+						} else {
+							print("UID = ", loginCred.UID)
+							Session.SetUID(loginCred.UID)
+							Session.Navigate("/")
 						}
-						print("after post, login cred =", loginCred.UID)
 					}()
 				}
 			}

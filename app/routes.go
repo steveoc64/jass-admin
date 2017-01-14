@@ -2,7 +2,9 @@ package main
 
 import (
 	"errors"
+	"strconv"
 
+	"github.com/go-humble/locstor"
 	"github.com/go-humble/router"
 	"honnef.co/go/js/dom"
 )
@@ -55,5 +57,25 @@ func initRouter() {
 }
 
 func defaultRoute(context *router.Context) {
-	// print("Nav to Default Route")
+	print("Nav to Default Route with UID", Session.UID)
+	if Session.UID == 0 {
+		uidstr, err := locstor.GetItem("uid")
+		if err != nil {
+			doLoginPage()
+			return
+		}
+
+		uid, err := strconv.Atoi(uidstr)
+
+		if uid != 0 {
+			print("loaded UID from local storage", uid)
+			Session.UID = uid
+			doMainPage()
+		} else {
+			print("not logged in")
+			doLoginPage()
+		}
+	} else {
+		doMainPage()
+	}
 }

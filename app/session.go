@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"./shared"
+	"github.com/go-humble/locstor"
 	"github.com/go-humble/router"
 	"github.com/gopherjs/gopherjs/js"
 	"honnef.co/go/js/dom"
@@ -29,6 +30,11 @@ type GlobalSessionData struct {
 	CartTotal            float64
 	CartItemCount        int
 	CartItems            []shared.Item
+}
+
+func (s *GlobalSessionData) SetUID(uid int) {
+	locstor.SetItem("uid", fmt.Sprintf("%d", uid))
+	print("Set UID to ", uid)
 }
 
 func (s *GlobalSessionData) GetCartTotal() string {

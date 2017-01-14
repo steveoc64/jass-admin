@@ -10,10 +10,6 @@ func showTopMenu() {
 	doc.QuerySelector(".jass-logo-top").AddEventListener("click", false, func(evt dom.Event) {
 		print("Clicked on logo")
 		w.ScrollTo(0, 0)
-		if Session.UID == 0 {
-			doLoginPage()
-		} else {
-			doMainPage()
-		}
+		Session.Navigate("/")
 	})
 }

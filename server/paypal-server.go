@@ -19,7 +19,6 @@ type PaypalRPC struct{}
 
 func ppgood(c echo.Context) error {
 	fmt.Fprintf(PaypalLog, "------------------------------\n%s\n", "Paypal Payer Auth")
-	// /ppgood?paymentId=PAY-7873106948388592NLAIH3QQ&token=EC-9CT45881F61289818&PayerID=ZUN5TQSFBBM46 HTTP/1.1" 200 35 "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-9CT45881F61289818"
 
 	id := c.QueryParam("paymentId")
 	token := c.QueryParam("token")

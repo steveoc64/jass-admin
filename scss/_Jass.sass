@@ -365,10 +365,12 @@ body
 		overflow: hidden
 		// border: 1px solid black
 		// border-radius: 3px
-		@media screen and (min-width: 560px)
-			flex-basis: calc((100vw - 8rem)/2)
-		@media screen and (min-width: 992px )
-			flex-basis: calc((100vw - 12rem)/3)
+		@media screen and (min-width: 640px)
+			// flex-basis: calc((100vw - 16rem)/2)
+			flex-basis: 50vw
+		@media screen and (min-width: 1024px )
+			// flex-basis: calc((100vw - 16rem)/3)
+			flex-basis: 30vw
 		&:focus, &:hover
 			.blog-item-pic
 				-webkit-filter: saturate(1.2) opacity(1) blur(0)

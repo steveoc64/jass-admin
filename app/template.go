@@ -29,7 +29,7 @@ func init() {
       <label for="l-passwd">Password</label>
       <!-- <input type="password" placeholder="Password" id="l-passwd"> -->
       <input name="passwd" type="password" placeholder="Password" id="l-passwd">
-      <input class="button button-outline" type="button" value="Cancel" id="l-cancelbtn">
+      <!-- <input class="button button-outline" type="button" value="Cancel" id="l-cancelbtn"> -->
       <input class="button button" type="submit" value="Sign In" id="l-loginbtn">
     </fieldset>
   </form>

@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 
-	"./shared"
 	"github.com/go-humble/locstor"
 	"github.com/go-humble/router"
 	"github.com/gopherjs/gopherjs/js"
@@ -25,73 +24,11 @@ type GlobalSessionData struct {
 	LastWidth            int
 	Orientation          string
 	wasSubmobile         bool
-	Items                []shared.Item
-	Blogs                []shared.Blog
-	CartTotal            float64
-	CartItemCount        int
-	CartItems            []shared.Item
 }
 
 func (s *GlobalSessionData) SetUID(uid int) {
 	locstor.SetItem("uid", fmt.Sprintf("%d", uid))
 	print("Set UID to ", uid)
-}
-
-func (s *GlobalSessionData) GetCartTotal() string {
-	// print("cart total", s.CartTotal)
-	if s.CartTotal == 0.0 {
-		return ""
-	}
-	return fmt.Sprintf("$ %.0f", s.CartTotal)
-}
-
-func (s *GlobalSessionData) GetCartItemCount() string {
-	switch s.CartItemCount {
-	case 0:
-		return ""
-	case 1:
-		return "1 Item"
-	default:
-		return fmt.Sprintf("%d Items", s.CartItemCount)
-	}
-}
-
-func (s *GlobalSessionData) AddToCart(item *shared.Item) {
-	if item != nil {
-		// check if already in cart, if so, increment qty
-		for i, v := range s.CartItems {
-			if v.SKU == item.SKU {
-				s.CartItemCount++
-				s.CartTotal += item.Price
-				s.CartItems[i].Qty++
-				return
-			}
-		}
-
-		// not in the cart yet
-		s.CartItemCount++
-		s.CartTotal += item.Price
-		s.CartItems = append(s.CartItems, *item)
-	}
-
-}
-
-func (s *GlobalSessionData) FindItem(sku string) *shared.Item {
-	for i, v := range s.Items {
-		if sku == v.SKU {
-			return &s.Items[i]
-		}
-	}
-	return nil
-}
-
-func (s *GlobalSessionData) GetBlog(id int) *shared.Blog {
-	for i, v := range s.Blogs {
-		if v.ID == id {
-			return &s.Blogs[i]
-		}
-	}
-	return nil
 }
 
 var Session GlobalSessionData

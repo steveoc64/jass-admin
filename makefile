@@ -14,11 +14,11 @@ get:
 	go get -u github.com/go-humble/router
 	go get -u github.com/go-humble/locstor
 	go get -u github.com/steveoc64/formulate
-	go get -u github.com/steveoc64/godev/echocors
-	go get -u github.com/steveoc64/godev/sms
-	go get -u github.com/steveoc64/godev/smt
-	go get -u github.com/steveoc64/godev/db
-	go get -u github.com/steveoc64/godev/config
+	# go get -u github.com/steveoc64/godev/echocors
+	# go get -u github.com/steveoc64/godev/sms
+	# go get -u github.com/steveoc64/godev/smt
+	# go get -u github.com/steveoc64/godev/db
+	# go get -u github.com/steveoc64/godev/config
 	go get -u honnef.co/go/simple/cmd/gosimple
 	go get -u github.com/rs/cors
 	go get -u gopkg.in/gomail.v2
@@ -81,12 +81,10 @@ dist/assets.log: assets/*.html assets/img/*  assets/fonts/* assets/*.webmanifest
 
 appjs: dist/public/jass-admin.js
 
-dist/public/jass-admin.js: app/*.go shared/*.go 
+dist/public/jass-admin.js: app/*.go shared/*.go makefile
 	@mplayer -quiet ../audio/frontend-compile.ogg 2> /dev/null > /dev/null &
 	@mkdir -p dist/public/js
-	#cd app && gosimple
-	# @echo -n Before :
-	# @ls -l dist/public/jass.js
+	cd app && gosimple
 	GOOS=linux gopherjs build app/*.go -o dist/public/jass-admin.js -m
 	gopher-count dist/public/jass-admin.js | sort -n
 	@ls -l dist/public/jass-admin.js

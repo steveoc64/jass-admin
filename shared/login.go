@@ -7,10 +7,10 @@ type Login struct {
 	Result   string
 }
 
-func (t *Login) ModelId() string {
+func (t Login) ModelId() string {
 	return ""
 }
 
-func (t *Login) RootURL() string {
+func (t Login) RootURL() string {
 	return "/api/login"
 }

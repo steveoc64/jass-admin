@@ -52,12 +52,12 @@ func initRouter() {
 	Session.Router = router.New()
 	Session.Router.ShouldInterceptLinks = true
 	Session.Router.HandleFunc("/", defaultRoute)
+	Session.Router.HandleFunc("/blog", blogMaint)
 	Session.Router.Start()
-
 }
 
 func defaultRoute(context *router.Context) {
-	print("Nav to Default Route with UID", Session.UID)
+	// print("Nav to Default Route with UID", Session.UID)
 	if Session.UID == 0 {
 		uidstr, err := locstor.GetItem("uid")
 		if err != nil {
@@ -68,11 +68,11 @@ func defaultRoute(context *router.Context) {
 		uid, err := strconv.Atoi(uidstr)
 
 		if uid != 0 {
-			print("loaded UID from local storage", uid)
+			// print("loaded UID from local storage", uid)
 			Session.UID = uid
 			doMainPage()
 		} else {
-			print("not logged in")
+			// print("not logged in")
 			doLoginPage()
 		}
 	} else {

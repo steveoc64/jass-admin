@@ -5,10 +5,7 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
-	"strings"
 	"time"
-
-	"../shared"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -20,6 +17,16 @@ import (
 var e *echo.Echo
 var DB *runner.DB
 
+func printLog(c echo.Context, s ...interface{}) {
+	r := c.Request()
+	realIP := r.Header["X-Forwarded-For"]
+	theIP := r.RemoteAddr
+	if len(realIP) > 0 {
+		theIP = realIP[0]
+	}
+	log.Println(theIP, r.Method, r.URL.Path, s)
+}
+
 func main() {
 
 	rand.Seed(time.Now().UTC().UnixNano())
@@ -29,10 +36,11 @@ func main() {
 	// Start up the basic web server
 	e = echo.New()
 	e.Debug = true
+
 	e.Static("/", "public")
-	e.GET("/api/items", getItems)
-	e.GET("/api/blog", getBlogs)
-	e.POST("/api/login", doLogin)
+
+	initLogin(e)
+	initBlogs(e)
 
 	// Start up the mail server
 	if Config.MailServer == "" {
@@ -62,7 +70,7 @@ func main() {
 	}
 
 	e.Use(middleware.Recover())
-	e.Use(middleware.Gzip())
+	// e.Use(middleware.Gzip())
 	e.Debug = Config.Debug
 	// echocors.Init(e, Config.Debug)
 
@@ -71,47 +79,13 @@ func main() {
 
 	// Start the web server
 	if Config.Debug {
-		log.Printf("... Starting World of Jass Server on port %d", Config.WebPort)
+		log.Printf("... Starting Jass Admin Server on port %d", Config.WebPort)
 	}
-
-	InitPaypal(Config, e)
 
 	errRun := e.Start(fmt.Sprintf(":%d", Config.WebPort))
 	if errRun != nil {
 		println("Error: ", errRun.Error())
 	}
-	println("World of Jass Server All Done")
+	println("Jass Admin Server All Done")
 
-}
-
-func doLogin(c echo.Context) error {
-	println("got login post")
-
-	loginCred := &shared.Login{}
-	if err := c.Bind(loginCred); err != nil {
-		println("bind error", err.Error())
-	} else {
-		fmt.Printf("got login cred %v\n", *loginCred)
-		switch strings.ToLower(loginCred.Username) {
-		case "steve":
-			if loginCred.Passwd == "unx911zxx" {
-				loginCred.UID = 1
-			}
-		case "kal":
-			if loginCred.Passwd == "!Gordon5045" {
-				loginCred.UID = 2
-
-			}
-		case "kat":
-			if loginCred.Passwd == "fysherdog775" {
-				loginCred.UID = 3
-			}
-		default:
-			loginCred.Username = ""
-			loginCred.Passwd = ""
-			loginCred.Result = "Invalid username or password"
-		}
-		return c.JSON(http.StatusOK, loginCred)
-	}
-	return nil
 }

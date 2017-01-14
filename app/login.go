@@ -3,7 +3,6 @@ package main
 import (
 	"./shared"
 	"github.com/go-humble/form"
-	"github.com/go-humble/rest"
 	"honnef.co/go/js/dom"
 )
 
@@ -36,9 +35,8 @@ func doLoginPage() {
 					go func() {
 						print("login cred", loginCred)
 
-						conn := &rest.Client{ContentType: rest.ContentJSON}
 						if err = conn.Create(loginCred); err != nil {
-							print("rest err", err.Error())
+							print("REST err", err.Error())
 						} else {
 							print("UID = ", loginCred.UID)
 							Session.SetUID(loginCred.UID)

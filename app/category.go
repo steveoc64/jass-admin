@@ -67,7 +67,7 @@ func categoryEdit(context *router.Context) {
 		// Add event handlers
 		form.CancelEvent(func(evt dom.Event) {
 			evt.PreventDefault()
-			Session.Navigate("/category")
+			Session.Navigate("/categories")
 		})
 
 		form.SaveEvent(func(evt dom.Event) {

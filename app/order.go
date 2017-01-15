@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"./shared"
 	"github.com/go-humble/router"
 	"github.com/steveoc64/formulate"
@@ -11,10 +13,10 @@ import (
 // Name  string `db:"name"`
 // Descr string `db:"descr"`
 
-func productList(context *router.Context) {
+func orderList(context *router.Context) {
 	go func() {
 
-		data := []shared.Product{}
+		data := []shared.SaleOrder{}
 		err := conn.ReadAll(&data)
 		if err != nil {
 			print("REST error", err.Error())
@@ -22,12 +24,11 @@ func productList(context *router.Context) {
 		}
 
 		form := formulate.ListForm{}
-		form.New("fa-cube", "Product List")
+		form.New("fa-vcard", "Order List")
 
 		// Define the layout
 
-		form.Column("Name", "Name")
-		form.Column("Description", "Descr")
+		form.DateColumn("Date", "Date")
 
 		// Add event handlers
 		form.CancelEvent(func(evt dom.Event) {
@@ -37,21 +38,21 @@ func productList(context *router.Context) {
 
 		form.NewRowEvent(func(evt dom.Event) {
 			evt.PreventDefault()
-			Session.Navigate("/product/add")
+			Session.Navigate("/order/add")
 		})
 
 		form.RowEvent(func(key string) {
-			Session.Navigate("/product/" + key)
+			Session.Navigate("/order/" + key)
 		})
 
-		form.Render("prod-list", ".jass-main", &data)
+		form.Render("order-list", ".jass-main", &data)
 	}()
 }
 
-func productEdit(context *router.Context) {
+func orderEdit(context *router.Context) {
 	go func() {
 
-		data := shared.Product{}
+		data := shared.SaleOrder{}
 		err := conn.Read(context.Params["id"], &data)
 		if err != nil {
 			print("REST error", err.Error())
@@ -59,15 +60,14 @@ func productEdit(context *router.Context) {
 		}
 
 		form := formulate.EditForm{}
-		form.New("fa-cube", data.Name)
+		form.New("fa-vcard", fmt.Sprintf("Order #%06d", data.ID))
 
-		form.Row(1).AddInput(1, "Name", "Name")
-		form.Row(1).AddTextarea(1, "Description", "Descr")
+		form.Row(1).AddDate(1, "Date", "Date")
 
 		// Add event handlers
 		form.CancelEvent(func(evt dom.Event) {
 			evt.PreventDefault()
-			Session.Navigate("/products")
+			Session.Navigate("/orders")
 		})
 
 		form.SaveEvent(func(evt dom.Event) {
@@ -83,6 +83,6 @@ func productEdit(context *router.Context) {
 	}()
 }
 
-func productAdd(context *router.Context) {
+func orderAdd(context *router.Context) {
 	print("TODO - productAdd")
 }

@@ -85,7 +85,7 @@ func blogEdit(context *router.Context) {
 		// Add event handlers
 		form.CancelEvent(func(evt dom.Event) {
 			evt.PreventDefault()
-			Session.Navigate("/blog")
+			Session.Navigate("/blogs")
 		})
 
 		form.SaveEvent(func(evt dom.Event) {

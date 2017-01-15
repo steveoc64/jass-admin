@@ -67,7 +67,7 @@ func shippingEdit(context *router.Context) {
 		// Add event handlers
 		form.CancelEvent(func(evt dom.Event) {
 			evt.PreventDefault()
-			Session.Navigate("/shipping")
+			Session.Navigate("/shippings")
 		})
 
 		form.SaveEvent(func(evt dom.Event) {

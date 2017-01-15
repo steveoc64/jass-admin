@@ -62,7 +62,7 @@ func initBurger() {
 	// })
 	doc.QuerySelector("#menu-blog").AddEventListener("click", false, func(evt dom.Event) {
 		evt.PreventDefault()
-		Session.Navigate("/blog")
+		Session.Navigate("/blogs")
 		// w.Open("https://theworldofjass.wordpress.com", "blog", "")
 	})
 	// doc.QuerySelector("#menu-twitter").AddEventListener("click", false, func(evt dom.Event) {

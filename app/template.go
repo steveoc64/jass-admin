@@ -263,28 +263,28 @@ func init() {
 	if err = g.AddTemplate("main-page", `<div class="jass-model-image"></div>
 
 <div class="action-grid">
-	<div class="action__item" url="/blog">
+	<div class="action__item" url="/blogs">
 		<div class="action__title">Blogs</div>
 		<div class="action__icon"><i class="fa fa-hashtag fa-lg"></i></div>
 		<div class="action__text">
 			Edit Blog posts.
 		</div>
 	</div>
-	<div class="action__item" url="/category">
+	<div class="action__item" url="/categories">
 		<div class="action__title">Categories</div>
 		<div class="action__icon"><i class="fa fa-cubes fa-lg"></i></div>
 		<div class="action__text">
 			Setup Product Categories.
 		</div>
 	</div>
-	<div class="action__item" url="/product">
+	<div class="action__item" url="/products">
 		<div class="action__title">Products</div>
 		<div class="action__icon"><i class="fa fa-cube fa-lg"></i></div>
 		<div class="action__text">
 			Setup Product Details.
 		</div>
 	</div>
-	<div class="action__item" url="/shipping">
+	<div class="action__item" url="/shippings">
 		<div class="action__title">Shipping</div>
 		<div class="action__icon"><i class="fa fa-truck fa-lg"></i></div>
 		<div class="action__text">
@@ -298,35 +298,35 @@ func init() {
 			Sales Orders, Tracking, Reconcilliation Reports.
 		</div>
 	</div>
-	<div class="action__item" url="/newsletter">
+	<div class="action__item" url="/newsletters">
 		<div class="action__title">Newsletter</div>
 		<div class="action__icon"><i class="fa fa-newspaper-o fa-lg"></i></div>
 		<div class="action__text">
 			Review and Generate Mailouts.
 		</div>
 	</div>
-	<div class="action__item" url="/referrer">
+	<div class="action__item" url="/referrers">
 		<div class="action__title">Referrers</div>
 		<div class="action__icon"><i class="fa fa-cloud-download fa-lg"></i></div>
 		<div class="action__text">
 			Incoming Traffic from Referring Sites.
 		</div>
 	</div>
-	<div class="action__item" url="/linkout">
+	<div class="action__item" url="/linkouts">
 		<div class="action__title">Links</div>
 		<div class="action__icon"><i class="fa fa-cloud-upload fa-lg"></i></div>
 		<div class="action__text">
 			Outgoing Traffic to External Sites.
 		</div>
 	</div>
-	<div class="action__item" url="/customer">
+	<div class="action__item" url="/customers">
 		<div class="action__title">Customers</div>
 		<div class="action__icon"><i class="fa fa-user fa-lg"></i></div>
 		<div class="action__text">
 			Customer Database.
 		</div>
 	</div>
-	<div class="action__item" url="/users">
+	<div class="action__item" url="/admins">
 		<div class="action__title">Admins</div>
 		<div class="action__icon"><i class="fa fa-user-secret fa-lg"></i></div>
 		<div class="action__text">

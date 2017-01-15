@@ -73,10 +73,18 @@ func blogEdit(context *router.Context) {
 			data.ImageURL = data.GetImageURL()
 		}
 
+		Session.MobileSensitive = true
+		Session.OrientationSensitive = true
+
 		form := formulate.EditForm{}
 		form.New("fa-hashtag", data.Name)
 
-		form.Row(2).AddNumber(1, "Seq", "PostOrder", "0").AddCheck(1, "Archived", "Archived")
+		if Session.Mobile() {
+			form.Row(1).AddNumber(1, "Seq", "PostOrder", "0")
+			form.Row(1).AddCheck(1, "Archived", "Archived")
+		} else {
+			form.Row(2).AddNumber(1, "Seq", "PostOrder", "0").AddCheck(1, "Archived", "Archived")
+		}
 		form.Row(1).AddImage(1, "Image", "ImageURL")
 		form.Row(1).AddInput(1, "Short Title", "Name")
 		form.Row(1).AddInput(1, "Title", "Title")

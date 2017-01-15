@@ -74,7 +74,7 @@ func blogEdit(context *router.Context) {
 		}
 
 		Session.MobileSensitive = true
-		Session.OrientationSensitive = true
+		// Session.OrientationSensitive = true
 
 		form := formulate.EditForm{}
 		form.New("fa-hashtag", data.Name)

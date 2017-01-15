@@ -40,6 +40,47 @@ create table sale_order_item (
 	qty int not null
 );
 
+create table category (
+	id serial not null primary key,
+	name text,
+	descr text
+);
+
+create table product (
+	id serial not null primary key,
+	name text,
+	descr text,
+	image text,
+	volume_ml int,
+	weight_g int,
+	shipping_volume_ml int,
+	shipping_weight_g int,
+	shipping_code int
+);
+
+create table shipping_code (
+	id serial not null primary key,
+	name text,
+	descr text
+);
+
+create table region (
+	id serial not null primary key,
+	name text,
+	descr text
+);
+
+create table carrier (
+	id serial not null primary key,
+	name text,
+	descr text,
+	contact_name text,
+	phone text,
+	email text,
+	address text,
+	www text
+);
+
 create table item (
 	id serial not null primary key,
 	sku text not null default '',

@@ -17,6 +17,11 @@ type Blog struct {
 	ShareFacebook   int       `db:"share_facebook"`
 	ShareInstagram  int       `db:"share_instagram"`
 	ShareGooglePlus int       `db:"share_google_plus"`
+	ImageURL        string
+}
+
+func (t *Blog) GetImageURL() string {
+	return "/img/models/" + t.Image
 }
 
 func (t Blog) ModelId() string {

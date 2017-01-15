@@ -41,6 +41,7 @@ func main() {
 
 	initLogin(e)
 	initBlogs(e)
+	initProduct(e)
 
 	// Start up the mail server
 	if Config.MailServer == "" {

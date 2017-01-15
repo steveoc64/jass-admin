@@ -19,7 +19,7 @@ import (
 // ShareInstagram  int       `db:"share_instagram"`
 // ShareGooglePlus int       `db:"share_google_plus"`
 
-func blogMaint(context *router.Context) {
+func blogList(context *router.Context) {
 	go func() {
 
 		data := []shared.Blog{}
@@ -27,8 +27,8 @@ func blogMaint(context *router.Context) {
 		if err != nil {
 			print("REST error", err.Error())
 			return
-		} else {
-			print("got blogs", data)
+			// } else {
+			// 	print("got blogs", data)
 		}
 
 		form := formulate.ListForm{}
@@ -36,7 +36,8 @@ func blogMaint(context *router.Context) {
 
 		// Define the layout
 
-		form.Column("PostOrder", "Post Order")
+		form.Column("Seq", "PostOrder")
+		form.ImgColumn("Image", "GetImageURL")
 		form.Column("Name", "Name")
 
 		// Add event handlers
@@ -54,6 +55,51 @@ func blogMaint(context *router.Context) {
 			Session.Navigate("/blog/" + key)
 		})
 
-		form.Render("blog-list", "jass-main", data)
+		form.Render("blog-list", ".jass-main", &data)
 	}()
+}
+
+func blogEdit(context *router.Context) {
+	go func() {
+
+		data := shared.Blog{}
+		err := conn.Read(context.Params["id"], &data)
+		if err != nil {
+			print("REST error", err.Error())
+			return
+		} else {
+			print("got blog", data)
+			data.ImageURL = data.GetImageURL()
+		}
+
+		form := formulate.EditForm{}
+		form.New("fa-hashtag", data.Name)
+
+		form.Row(1).AddNumber(1, "Seq", "PostOrder", "0")
+		form.Row(1).AddImage(1, "Image", "ImageURL")
+		form.Row(1).AddInput(1, "Short Title", "Name")
+		form.Row(1).AddInput(1, "Title", "Title")
+		form.Row(1).AddTextarea(1, "Content", "Content")
+
+		// Add event handlers
+		form.CancelEvent(func(evt dom.Event) {
+			evt.PreventDefault()
+			Session.Navigate("/blog")
+		})
+
+		form.SaveEvent(func(evt dom.Event) {
+			evt.PreventDefault()
+			form.Bind(&data)
+			print("post bind", data)
+
+			// rest.Update(data)
+
+		})
+
+		form.Render("edit-form", ".jass-main", &data)
+	}()
+}
+
+func blogAdd(context *router.Context) {
+	print("TODO - add blog")
 }

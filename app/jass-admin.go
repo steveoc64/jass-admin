@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/go-humble/rest"
+	"github.com/steveoc64/formulate"
 	"honnef.co/go/js/dom"
 )
 
@@ -10,8 +11,9 @@ var conn = &rest.Client{ContentType: rest.ContentJSON}
 
 func main() {
 	w := dom.GetWindow()
-
 	w.ScrollTo(0, 0)
+
+	formulate.Templates(GetTemplate)
 
 	print("Booting up jass-admin -", codeVersion)
 

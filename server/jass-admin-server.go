@@ -44,6 +44,7 @@ func main() {
 	initProduct(e)
 	initShipping(e)
 	initOrders(e)
+	initNewsletters(e)
 
 	// Start up the mail server
 	if Config.MailServer == "" {

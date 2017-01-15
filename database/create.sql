@@ -121,6 +121,13 @@ create table carrier (
 	www text
 );
 
+create table newsletter (
+	id serial not null primary key,
+	date timestamptz not null default localtimestamp,
+	name text,
+	content text
+);
+
 create table item (
 	id serial not null primary key,
 	sku text not null default '',

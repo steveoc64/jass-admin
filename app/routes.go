@@ -61,6 +61,9 @@ func initRouter() {
 	Session.Router.HandleFunc("/product", productList)
 	Session.Router.HandleFunc("/product/add", productAdd)
 	Session.Router.HandleFunc("/product/{id}", productEdit)
+	Session.Router.HandleFunc("/shipping", shippingList)
+	Session.Router.HandleFunc("/shipping/add", shippingAdd)
+	Session.Router.HandleFunc("/shipping/{id}", shippingEdit)
 	Session.Router.Start()
 }
 

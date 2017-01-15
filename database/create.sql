@@ -15,6 +15,46 @@ create table users (
 	sms_alerts bool default false
 );
 
+create table admin_users (
+	id serial not null primary key,
+	username text,
+	pw text
+);
+
+create table admin_login (
+	user_id int,
+	date timestamptz not null default localtimestamp,
+	ip_addr text,
+	user_agent text,
+	referrer text
+);
+
+create table referrer (
+	id serial not null primary key,
+	name text,
+	url text
+);
+
+create table ref_hit (
+	ref_id int,
+	date timestamptz not null default localtimestamp,
+	ip_addr text,
+	user_agent text
+);
+
+create table uplink (
+	id int serial not null primary key,
+	name text,
+	url text
+);
+
+create table up_hit (
+	id int not null primary key,
+	date timestamptz not null default localtimestamp,
+	ip_addr text,
+	user_agent text
+);
+
 create table address (
 	id serial not null primary key,
 	date timestamptz not null default localtimestamp,
@@ -106,7 +146,8 @@ create table blog (
 	share_twitter int not null default 0,
 	share_facebook int not null default 0,
 	share_instagram int not null default 0,
-	share_google_plus int not null default 0
+	share_google_plus int not null default 0,
+	archived bool default false
 );
 
 create table tags (

@@ -21,6 +21,8 @@ type Product struct {
 	Name             string `db:"name"`
 	Descr            string `db:"descr"`
 	Image            string `db:"image"`
+	VolumeML         int    `db:"volume_ml"`
+	WeightG          int    `db:"weight_g"`
 	ShippingVolumeML int    `db:"shipping_volume_ml"`
 	ShippingWeightG  int    `db:"shipping_weight_g"`
 	ShippingCode     int    `db:"shipping_code"`

@@ -36,6 +36,7 @@ func blogList(context *router.Context) {
 
 		// Define the layout
 
+		form.BoolColumn("Archived", "Archived")
 		form.Column("Seq", "PostOrder")
 		form.ImgColumn("Image", "GetImageURL")
 		form.Column("Name", "Name")
@@ -75,7 +76,7 @@ func blogEdit(context *router.Context) {
 		form := formulate.EditForm{}
 		form.New("fa-hashtag", data.Name)
 
-		form.Row(1).AddNumber(1, "Seq", "PostOrder", "0")
+		form.Row(2).AddNumber(1, "Seq", "PostOrder", "0").AddCheck(1, "Archived", "Archived")
 		form.Row(1).AddImage(1, "Image", "ImageURL")
 		form.Row(1).AddInput(1, "Short Title", "Name")
 		form.Row(1).AddInput(1, "Title", "Title")

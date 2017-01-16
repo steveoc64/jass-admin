@@ -35,7 +35,7 @@ func doLoginPage() {
 					go func() {
 						print("login cred", loginCred)
 
-						if err = conn.Create(loginCred); err != nil {
+						if err = apiServer.Create(loginCred); err != nil {
 							print("REST err", err.Error())
 						} else {
 							print("UID = ", loginCred.UID)

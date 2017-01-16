@@ -15,7 +15,7 @@ func categoryList(context *router.Context) {
 	go func() {
 
 		data := []shared.Category{}
-		err := conn.ReadAll(&data)
+		err := apiServer.ReadAll(&data)
 		if err != nil {
 			print("REST error", err.Error())
 			return
@@ -52,7 +52,7 @@ func categoryEdit(context *router.Context) {
 	go func() {
 
 		data := shared.Category{}
-		err := conn.Read(context.Params["id"], &data)
+		err := apiServer.Read(context.Params["id"], &data)
 		if err != nil {
 			print("REST error", err.Error())
 			return

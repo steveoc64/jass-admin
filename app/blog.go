@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"./shared"
 	"github.com/go-humble/router"
 	"github.com/steveoc64/formulate"
@@ -23,7 +25,7 @@ func blogList(context *router.Context) {
 	go func() {
 
 		data := []shared.Blog{}
-		err := conn.ReadAll(&data)
+		err := apiServer.ReadAll(&data)
 		if err != nil {
 			print("REST error", err.Error())
 			return
@@ -64,7 +66,7 @@ func blogEdit(context *router.Context) {
 	go func() {
 
 		data := shared.Blog{}
-		err := conn.Read(context.Params["id"], &data)
+		err := apiServer.Read(context.Params["id"], &data)
 		if err != nil {
 			print("REST error", err.Error())
 			return
@@ -89,6 +91,60 @@ func blogEdit(context *router.Context) {
 		form.Row(1).AddInput(1, "Short Title", "Name")
 		form.Row(1).AddInput(1, "Title", "Title")
 		form.Row(1).AddTextarea(1, "Content", "Content")
+		form.Row(1).AddDisplay(1, "Twitter Shares", "ShareTwitter")
+		form.Row(1).AddDisplay(1, "Facebook Shares", "ShareFacebook")
+		form.Row(1).AddDisplay(1, "Google+ Shares", "ShareGooglePlus")
+
+		// Add event handlers
+		form.CancelEvent(func(evt dom.Event) {
+			evt.PreventDefault()
+			Session.Navigate("/blogs")
+		})
+
+		form.DeleteEvent(func(evt dom.Event) {
+			print("delete event")
+			evt.PreventDefault()
+			go func() {
+				err := apiServer.Delete(&data)
+				if err != nil {
+					print("REST delete", err.Error())
+				} else {
+					Session.Navigate("/blogs")
+				}
+			}()
+		})
+
+		form.SaveEvent(func(evt dom.Event) {
+			evt.PreventDefault()
+			go func() {
+				form.Bind(&data)
+				print("post bind", data)
+				err := apiServer.Update(&data)
+				if err != nil {
+					print("REST update", err.Error())
+				} else {
+					Session.Navigate("/blogs")
+				}
+			}()
+		})
+
+		form.Render("edit-form", ".jass-main", &data)
+	}()
+}
+
+func blogAdd(context *router.Context) {
+	go func() {
+
+		data := shared.Blog{}
+		// Session.OrientationSensitive = true
+
+		form := formulate.EditForm{}
+		form.New("fa-hashtag", "Add New Blog")
+
+		form.Row(1).AddInput(1, "Image", "ImageURL")
+		form.Row(1).AddInput(1, "Short Title", "Name")
+		form.Row(1).AddInput(1, "Title", "Title")
+		form.Row(1).AddTextarea(1, "Content", "Content")
 
 		// Add event handlers
 		form.CancelEvent(func(evt dom.Event) {
@@ -98,17 +154,20 @@ func blogEdit(context *router.Context) {
 
 		form.SaveEvent(func(evt dom.Event) {
 			evt.PreventDefault()
-			form.Bind(&data)
-			print("post bind", data)
 
-			// rest.Update(data)
-
+			go func() {
+				form.Bind(&data)
+				print("post bind", data)
+				err := apiServer.Create(&data)
+				if err != nil {
+					print("REST create", err.Error())
+				} else {
+					Session.Navigate(fmt.Sprintf("/blog/%d", data.ID))
+				}
+			}()
 		})
 
 		form.Render("edit-form", ".jass-main", &data)
 	}()
-}
 
-func blogAdd(context *router.Context) {
-	print("TODO - add blog")
 }

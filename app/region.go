@@ -11,10 +11,10 @@ import (
 // Name  string `db:"name"`
 // Descr string `db:"descr"`
 
-func productList(context *router.Context) {
+func regionList(context *router.Context) {
 	go func() {
 
-		data := []shared.Product{}
+		data := []shared.Region{}
 		err := apiServer.ReadAll(&data)
 		if err != nil {
 			print("REST error", err.Error())
@@ -22,7 +22,7 @@ func productList(context *router.Context) {
 		}
 
 		form := formulate.ListForm{}
-		form.New("fa-cube", "Product List")
+		form.New("fa-globe", "Shipping Regions")
 
 		// Define the layout
 
@@ -37,21 +37,21 @@ func productList(context *router.Context) {
 
 		form.NewRowEvent(func(evt dom.Event) {
 			evt.PreventDefault()
-			Session.Navigate("/product/add")
+			Session.Navigate("/region/add")
 		})
 
 		form.RowEvent(func(key string) {
-			Session.Navigate("/product/" + key)
+			Session.Navigate("/region/" + key)
 		})
 
-		form.Render("prod-list", ".jass-main", &data)
+		form.Render("region-list", ".jass-main", &data)
 	}()
 }
 
-func productEdit(context *router.Context) {
+func regionEdit(context *router.Context) {
 	go func() {
 
-		data := shared.Product{}
+		data := shared.Region{}
 		err := apiServer.Read(context.Params["id"], &data)
 		if err != nil {
 			print("REST error", err.Error())
@@ -59,7 +59,7 @@ func productEdit(context *router.Context) {
 		}
 
 		form := formulate.EditForm{}
-		form.New("fa-cube", data.Name)
+		form.New("fa-globe", data.Name)
 
 		form.Row(1).AddInput(1, "Name", "Name")
 		form.Row(1).AddTextarea(1, "Description", "Descr")
@@ -67,7 +67,7 @@ func productEdit(context *router.Context) {
 		// Add event handlers
 		form.CancelEvent(func(evt dom.Event) {
 			evt.PreventDefault()
-			Session.Navigate("/products")
+			Session.Navigate("/regions")
 		})
 
 		form.SaveEvent(func(evt dom.Event) {
@@ -83,6 +83,6 @@ func productEdit(context *router.Context) {
 	}()
 }
 
-func productAdd(context *router.Context) {
-	print("TODO - productAdd")
+func regionAdd(context *router.Context) {
+	print("TODO - regionAdd")
 }

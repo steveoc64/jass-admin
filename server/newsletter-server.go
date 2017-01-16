@@ -11,14 +11,14 @@ import (
 
 func initNewsletters(e *echo.Echo) {
 	println("setting up routes for newsletters")
-	e.GET("/api/news", getNewsletters)
+	e.GET("/api/news", listNewsletter)
 	e.POST("/api/news/add", addNewsletter)
 	e.GET("/api/news/:id", getNewsletter)
 	e.PATCH("/api/news/:id", updateNewsletter)
 	e.DELETE("/api/news/:id", deleteNewsletter)
 }
 
-func getNewsletters(c echo.Context) error {
+func listNewsletter(c echo.Context) error {
 	printLog(c)
 	data := []shared.Newsletter{}
 

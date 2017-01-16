@@ -11,20 +11,20 @@ import (
 
 func initProduct(e *echo.Echo) {
 	println("setting up routes for products")
-	e.GET("/api/category", getCategories)
+	e.GET("/api/category", listCategory)
 	e.POST("/api/category/add", addCategory)
 	e.GET("/api/category/:id", getCategory)
 	e.PATCH("/api/category/:id", updateCategory)
 	e.DELETE("/api/category/:id", deleteCategory)
 
-	e.GET("/api/product", getProducts)
+	e.GET("/api/product", listProduct)
 	e.POST("/api/product/new", addProduct)
 	e.GET("/api/product/:id", getProduct)
 	e.PATCH("/api/product/:id", updateProduct)
 	e.DELETE("/api/product/:id", deleteProduct)
 }
 
-func getCategories(c echo.Context) error {
+func listCategory(c echo.Context) error {
 	printLog(c)
 	data := []shared.Category{}
 
@@ -61,7 +61,7 @@ func deleteCategory(c echo.Context) error {
 	return c.JSON(http.StatusOK, "")
 }
 
-func getProducts(c echo.Context) error {
+func listProduct(c echo.Context) error {
 	printLog(c)
 	data := []shared.Product{}
 

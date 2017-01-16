@@ -11,14 +11,21 @@ import (
 
 func initShipping(e *echo.Echo) {
 	println("setting up routes for shipping details")
-	e.GET("/api/shipping", getShippings)
+
+	e.GET("/api/shipping", listShipping)
 	e.POST("/api/shipping/add", addShipping)
 	e.GET("/api/shipping/:id", getShipping)
 	e.PATCH("/api/shipping/:id", updateShipping)
 	e.DELETE("/api/shipping/:id", deleteShipping)
+
+	e.GET("/api/region", listRegion)
+	e.POST("/api/region/add", addRegion)
+	e.GET("/api/region/:id", getRegion)
+	e.PATCH("/api/region/:id", updateRegion)
+	e.DELETE("/api/region/:id", deleteRegion)
 }
 
-func getShippings(c echo.Context) error {
+func listShipping(c echo.Context) error {
 	printLog(c)
 	data := []shared.ShippingCode{}
 
@@ -51,6 +58,43 @@ func addShipping(c echo.Context) error {
 }
 
 func deleteShipping(c echo.Context) error {
+	printLog(c)
+	return c.JSON(http.StatusOK, "")
+}
+
+func listRegion(c echo.Context) error {
+	printLog(c)
+	data := []shared.Region{}
+
+	err := DB.SQL(`select * from region order by id`).QueryStructs(&data)
+	if err != nil {
+		println(err.Error())
+	}
+	return c.JSON(http.StatusOK, data)
+}
+
+func getRegion(c echo.Context) error {
+	printLog(c)
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return c.JSON(http.StatusNotFound, "")
+	}
+	data := shared.ShippingCode{}
+	DB.SQL(`select * from region where id=$1`, id).QueryStruct(&data)
+	return c.JSON(http.StatusOK, data)
+}
+
+func updateRegion(c echo.Context) error {
+	printLog(c)
+	return c.JSON(http.StatusOK, "")
+}
+
+func addRegion(c echo.Context) error {
+	printLog(c)
+	return c.JSON(http.StatusOK, "")
+}
+
+func deleteRegion(c echo.Context) error {
 	printLog(c)
 	return c.JSON(http.StatusOK, "")
 }

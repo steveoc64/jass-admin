@@ -11,14 +11,14 @@ import (
 
 func initOrders(e *echo.Echo) {
 	println("setting up routes for order details")
-	e.GET("/api/order", getOrders)
+	e.GET("/api/order", listOrder)
 	e.POST("/api/order/add", addOrder)
 	e.GET("/api/order/:id", getOrder)
 	e.PATCH("/api/order/:id", updateOrder)
 	e.DELETE("/api/order/:id", deleteOrder)
 }
 
-func getOrders(c echo.Context) error {
+func listOrder(c echo.Context) error {
 	printLog(c)
 	data := []shared.SaleOrder{}
 

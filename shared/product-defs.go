@@ -20,6 +20,10 @@ func (t *Product) GetImageURL() string {
 	return "/img/product/" + t.Image
 }
 
+func (t *Product) GetNameDesc() string {
+	return t.Name + " - " + t.Descr
+}
+
 func (t Product) ModelId() string {
 	return fmt.Sprintf("%d", t.ID)
 }

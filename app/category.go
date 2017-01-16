@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"./shared"
 	"github.com/go-humble/router"
 	"github.com/steveoc64/formulate"
@@ -136,7 +134,8 @@ func categoryAdd(context *router.Context) {
 				if err != nil {
 					print("REST create", err.Error())
 				} else {
-					Session.Navigate(fmt.Sprintf("/category/%d", data.ID))
+					// Session.Navigate(fmt.Sprintf("/category/%d", data.ID))
+					Session.Navigate("/categories")
 				}
 			}()
 		})

@@ -111,6 +111,17 @@ create table region (
 	descr text
 );
 
+create table postage (
+	shipping_code int not null,
+	region_id int not null,
+	date timestamptz not null default localtimestamp,
+	cost numeric(12,2),
+	price numeric(12,2),
+	eta_days int default 5,
+	max_days int default 30,
+	has_tracking bool default false
+);
+
 create table carrier (
 	id serial not null primary key,
 	name text,

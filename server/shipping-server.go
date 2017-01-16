@@ -48,17 +48,48 @@ func getShipping(c echo.Context) error {
 }
 
 func updateShipping(c echo.Context) error {
-	printLog(c)
-	return c.JSON(http.StatusOK, "")
+	data := shared.ShippingCode{}
+	c.Bind(&data)
+	printLog(c, data)
+
+	_, err := DB.Update("shipping_code").
+		SetWhitelist(data, "name", "descr").
+		Where("id = $1", data.ID).
+		Exec()
+	if err != nil {
+		return c.JSON(http.StatusNotAcceptable, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, data)
 }
 
 func addShipping(c echo.Context) error {
-	printLog(c)
-	return c.JSON(http.StatusOK, "")
+	data := shared.ShippingCode{}
+	c.Bind(&data)
+	printLog(c, data)
+
+	id := 0
+	err := DB.InsertInto("shipping_code").
+		Whitelist("name", "descr").
+		Record(data).
+		Returning("id").
+		QueryScalar(&id)
+	if err != nil {
+		return c.JSON(http.StatusNotAcceptable, err.Error())
+	}
+	DB.SQL("select * from shipping_code where id=$1", id).QueryStruct(&data)
+	return c.JSON(http.StatusOK, data)
 }
 
 func deleteShipping(c echo.Context) error {
-	printLog(c)
+	id, _ := strconv.Atoi(c.Param("id"))
+	printLog(c, id)
+
+	_, err := DB.SQL("delete from shipping_code where id=$1", id).Exec()
+	if err != nil {
+		return c.JSON(http.StatusNotAcceptable, err.Error())
+	}
+
 	return c.JSON(http.StatusOK, "")
 }
 
@@ -79,22 +110,52 @@ func getRegion(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusNotFound, "")
 	}
-	data := shared.ShippingCode{}
+	data := shared.Region{}
 	DB.SQL(`select * from region where id=$1`, id).QueryStruct(&data)
 	return c.JSON(http.StatusOK, data)
 }
 
 func updateRegion(c echo.Context) error {
-	printLog(c)
-	return c.JSON(http.StatusOK, "")
+	data := shared.Region{}
+	c.Bind(&data)
+	printLog(c, data)
+
+	_, err := DB.Update("region").
+		SetWhitelist(data, "name", "descr").
+		Where("id = $1", data.ID).
+		Exec()
+	if err != nil {
+		return c.JSON(http.StatusNotAcceptable, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, data)
 }
 
 func addRegion(c echo.Context) error {
-	printLog(c)
-	return c.JSON(http.StatusOK, "")
+	data := shared.Region{}
+	c.Bind(&data)
+	printLog(c, data)
+
+	id := 0
+	err := DB.InsertInto("region").
+		Whitelist("name", "descr").
+		Record(data).
+		Returning("id").
+		QueryScalar(&id)
+	if err != nil {
+		return c.JSON(http.StatusNotAcceptable, err.Error())
+	}
+	DB.SQL("select * from region where id=$1", id).QueryStruct(&data)
+	return c.JSON(http.StatusOK, data)
 }
 
 func deleteRegion(c echo.Context) error {
-	printLog(c)
+	id, _ := strconv.Atoi(c.Param("id"))
+	printLog(c, id)
+
+	_, err := DB.SQL("delete from region where id=$1", id).Exec()
+	if err != nil {
+		return c.JSON(http.StatusNotAcceptable, err.Error())
+	}
 	return c.JSON(http.StatusOK, "")
 }

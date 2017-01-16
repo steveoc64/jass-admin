@@ -55,16 +55,13 @@ func initRouter() {
 
 	initBlog()
 	initCategory()
+	initShipping()
+	initRegion()
 
-	Session.Router.HandleFunc("/shippings", shippingList)
-	Session.Router.HandleFunc("/shipping/add", shippingAdd)
-	Session.Router.HandleFunc("/shipping/{id}", shippingEdit)
-	Session.Router.HandleFunc("/regions", regionList)
-	Session.Router.HandleFunc("/region/add", regionAdd)
-	Session.Router.HandleFunc("/region/{id}", regionEdit)
 	Session.Router.HandleFunc("/orders", orderList)
 	Session.Router.HandleFunc("/order/add", orderAdd)
 	Session.Router.HandleFunc("/order/{id}", orderEdit)
+
 	Session.Router.HandleFunc("/newsletters", newsList)
 	Session.Router.HandleFunc("/news/add", newsAdd)
 	Session.Router.HandleFunc("/news/{id}", newsEdit)

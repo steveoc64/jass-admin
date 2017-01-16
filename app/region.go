@@ -11,6 +11,12 @@ import (
 // Name  string `db:"name"`
 // Descr string `db:"descr"`
 
+func initRegion() {
+	Session.Router.HandleFunc("/regions", regionList)
+	Session.Router.HandleFunc("/region/add", regionAdd)
+	Session.Router.HandleFunc("/region/{id}", regionEdit)
+}
+
 func regionList(context *router.Context) {
 	go func() {
 
@@ -70,13 +76,29 @@ func regionEdit(context *router.Context) {
 			Session.Navigate("/regions")
 		})
 
+		form.DeleteEvent(func(evt dom.Event) {
+			evt.PreventDefault()
+			go func() {
+				err := restServer.Delete(&data)
+				if err != nil {
+					print("REST delete", err.Error())
+				} else {
+					Session.Navigate("/regions")
+				}
+			}()
+		})
+
 		form.SaveEvent(func(evt dom.Event) {
 			evt.PreventDefault()
-			form.Bind(&data)
-			print("post bind", data)
-
-			// rest.Update(data)
-
+			go func() {
+				form.Bind(&data)
+				err := restServer.Update(&data)
+				if err != nil {
+					print("REST update", err.Error())
+				} else {
+					Session.Navigate("/regions")
+				}
+			}()
 		})
 
 		form.Render("edit-form", ".jass-main", &data)
@@ -84,5 +106,38 @@ func regionEdit(context *router.Context) {
 }
 
 func regionAdd(context *router.Context) {
-	print("TODO - regionAdd")
+	go func() {
+
+		data := shared.Region{}
+		// Session.OrientationSensitive = true
+
+		form := formulate.EditForm{}
+		form.New("fa-truck", "New Region Code")
+
+		form.Row(1).AddInput(1, "Name", "Name")
+		form.Row(1).AddTextarea(1, "Description", "Descr")
+
+		// Add event handlers
+		form.CancelEvent(func(evt dom.Event) {
+			evt.PreventDefault()
+			Session.Navigate("/regions")
+		})
+
+		form.SaveEvent(func(evt dom.Event) {
+			evt.PreventDefault()
+
+			go func() {
+				form.Bind(&data)
+				err := restServer.Create(&data)
+				if err != nil {
+					print("REST create", err.Error())
+				} else {
+					// Session.Navigate(fmt.Sprintf("/region/%d", data.ID))
+					Session.Navigate("/regions")
+				}
+			}()
+		})
+
+		form.Render("edit-form", ".jass-main", &data)
+	}()
 }

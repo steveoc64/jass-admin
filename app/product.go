@@ -62,12 +62,16 @@ func productEdit(context *router.Context) {
 		}
 		cats := []shared.Category{}
 		restServer.ReadAll(&cats)
+		ships := []shared.ShippingCode{}
+		restServer.ReadAll(&ships)
+
 		data.ImageURL = data.GetImageURL()
 
 		form := formulate.EditForm{}
 		form.New("fa-cube", data.Name)
 
 		form.Row(1).AddSelect(1, "Category", "CatID", cats, "ID", "Name", 1, 0)
+		form.Row(1).AddSelect(1, "Shipping Code", "ShippingCode", ships, "ID", "Name", 1, 0)
 		form.Row(1).AddInput(1, "Name", "Name")
 		form.Row(1).AddInput(1, "Image", "Image")
 		form.Row(1).AddImage(1, "Image Preview", "ImageURL")

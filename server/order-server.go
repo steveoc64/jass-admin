@@ -12,7 +12,7 @@ import (
 func initOrders(e *echo.Echo) {
 	println("setting up routes for order details")
 	e.GET("/api/order", listOrder)
-	e.POST("/api/order/add", addOrder)
+	e.POST("/api/order", addOrder)
 	e.GET("/api/order/:id", getOrder)
 	e.PATCH("/api/order/:id", updateOrder)
 	e.DELETE("/api/order/:id", deleteOrder)

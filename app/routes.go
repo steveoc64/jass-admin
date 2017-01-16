@@ -52,15 +52,10 @@ func initRouter() {
 	Session.Router = router.New()
 	Session.Router.ShouldInterceptLinks = true
 	Session.Router.HandleFunc("/", defaultRoute)
-	Session.Router.HandleFunc("/blogs", blogList)
-	Session.Router.HandleFunc("/blog/add", blogAdd)
-	Session.Router.HandleFunc("/blog/{id}", blogEdit)
-	Session.Router.HandleFunc("/categories", categoryList)
-	Session.Router.HandleFunc("/category/add", categoryList)
-	Session.Router.HandleFunc("/category/{id}", categoryEdit)
-	Session.Router.HandleFunc("/products", productList)
-	Session.Router.HandleFunc("/product/add", productAdd)
-	Session.Router.HandleFunc("/product/{id}", productEdit)
+
+	initBlog()
+	initCategory()
+
 	Session.Router.HandleFunc("/shippings", shippingList)
 	Session.Router.HandleFunc("/shipping/add", shippingAdd)
 	Session.Router.HandleFunc("/shipping/{id}", shippingEdit)

@@ -21,11 +21,17 @@ import (
 // ShareInstagram  int       `db:"share_instagram"`
 // ShareGooglePlus int       `db:"share_google_plus"`
 
+func initBlog() {
+	Session.Router.HandleFunc("/blogs", blogList)
+	Session.Router.HandleFunc("/blog/add", blogAdd)
+	Session.Router.HandleFunc("/blog/{id}", blogEdit)
+}
+
 func blogList(context *router.Context) {
 	go func() {
 
 		data := []shared.Blog{}
-		err := apiServer.ReadAll(&data)
+		err := restServer.ReadAll(&data)
 		if err != nil {
 			print("REST error", err.Error())
 			return
@@ -66,12 +72,11 @@ func blogEdit(context *router.Context) {
 	go func() {
 
 		data := shared.Blog{}
-		err := apiServer.Read(context.Params["id"], &data)
+		err := restServer.Read(context.Params["id"], &data)
 		if err != nil {
 			print("REST error", err.Error())
 			return
 		} else {
-			print("got blog", data)
 			data.ImageURL = data.GetImageURL()
 		}
 
@@ -102,10 +107,9 @@ func blogEdit(context *router.Context) {
 		})
 
 		form.DeleteEvent(func(evt dom.Event) {
-			print("delete event")
 			evt.PreventDefault()
 			go func() {
-				err := apiServer.Delete(&data)
+				err := restServer.Delete(&data)
 				if err != nil {
 					print("REST delete", err.Error())
 				} else {
@@ -118,8 +122,7 @@ func blogEdit(context *router.Context) {
 			evt.PreventDefault()
 			go func() {
 				form.Bind(&data)
-				print("post bind", data)
-				err := apiServer.Update(&data)
+				err := restServer.Update(&data)
 				if err != nil {
 					print("REST update", err.Error())
 				} else {
@@ -157,8 +160,7 @@ func blogAdd(context *router.Context) {
 
 			go func() {
 				form.Bind(&data)
-				print("post bind", data)
-				err := apiServer.Create(&data)
+				err := restServer.Create(&data)
 				if err != nil {
 					print("REST create", err.Error())
 				} else {

@@ -13,13 +13,13 @@ func initShipping(e *echo.Echo) {
 	println("setting up routes for shipping details")
 
 	e.GET("/api/shipping", listShipping)
-	e.POST("/api/shipping/add", addShipping)
+	e.POST("/api/shipping", addShipping)
 	e.GET("/api/shipping/:id", getShipping)
 	e.PATCH("/api/shipping/:id", updateShipping)
 	e.DELETE("/api/shipping/:id", deleteShipping)
 
 	e.GET("/api/region", listRegion)
-	e.POST("/api/region/add", addRegion)
+	e.POST("/api/region", addRegion)
 	e.GET("/api/region/:id", getRegion)
 	e.PATCH("/api/region/:id", updateRegion)
 	e.DELETE("/api/region/:id", deleteRegion)

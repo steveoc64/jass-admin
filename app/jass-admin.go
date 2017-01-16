@@ -7,7 +7,7 @@ import (
 )
 
 var codeVersion = "0.1.0"
-var apiServer = &rest.Client{ContentType: rest.ContentJSON}
+var restServer = &rest.Client{ContentType: rest.ContentJSON}
 
 func main() {
 	w := dom.GetWindow()

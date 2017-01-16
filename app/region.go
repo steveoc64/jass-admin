@@ -15,7 +15,7 @@ func regionList(context *router.Context) {
 	go func() {
 
 		data := []shared.Region{}
-		err := apiServer.ReadAll(&data)
+		err := restServer.ReadAll(&data)
 		if err != nil {
 			print("REST error", err.Error())
 			return
@@ -52,7 +52,7 @@ func regionEdit(context *router.Context) {
 	go func() {
 
 		data := shared.Region{}
-		err := apiServer.Read(context.Params["id"], &data)
+		err := restServer.Read(context.Params["id"], &data)
 		if err != nil {
 			print("REST error", err.Error())
 			return

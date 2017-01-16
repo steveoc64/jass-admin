@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"./shared"
 	"github.com/go-humble/router"
 	"github.com/steveoc64/formulate"
@@ -11,11 +13,21 @@ import (
 // Name  string `db:"name"`
 // Descr string `db:"descr"`
 
+func initCategory() {
+	Session.Router.HandleFunc("/categories", categoryList)
+	Session.Router.HandleFunc("/category/add", categoryAdd)
+	Session.Router.HandleFunc("/category/{id}", categoryEdit)
+
+	Session.Router.HandleFunc("/products", productList)
+	Session.Router.HandleFunc("/product/add", productAdd)
+	Session.Router.HandleFunc("/product/{id}", productEdit)
+}
+
 func categoryList(context *router.Context) {
 	go func() {
 
 		data := []shared.Category{}
-		err := apiServer.ReadAll(&data)
+		err := restServer.ReadAll(&data)
 		if err != nil {
 			print("REST error", err.Error())
 			return
@@ -52,7 +64,7 @@ func categoryEdit(context *router.Context) {
 	go func() {
 
 		data := shared.Category{}
-		err := apiServer.Read(context.Params["id"], &data)
+		err := restServer.Read(context.Params["id"], &data)
 		if err != nil {
 			print("REST error", err.Error())
 			return
@@ -70,13 +82,29 @@ func categoryEdit(context *router.Context) {
 			Session.Navigate("/categories")
 		})
 
+		form.DeleteEvent(func(evt dom.Event) {
+			evt.PreventDefault()
+			go func() {
+				err := restServer.Delete(&data)
+				if err != nil {
+					print("REST delete", err.Error())
+				} else {
+					Session.Navigate("/categories")
+				}
+			}()
+		})
+
 		form.SaveEvent(func(evt dom.Event) {
 			evt.PreventDefault()
-			form.Bind(&data)
-			print("post bind", data)
-
-			// rest.Update(data)
-
+			go func() {
+				form.Bind(&data)
+				err := restServer.Update(&data)
+				if err != nil {
+					print("REST update", err.Error())
+				} else {
+					Session.Navigate("/categories")
+				}
+			}()
 		})
 
 		form.Render("edit-form", ".jass-main", &data)
@@ -84,5 +112,35 @@ func categoryEdit(context *router.Context) {
 }
 
 func categoryAdd(context *router.Context) {
-	print("TODO - categoryAdd")
+	print("add category")
+	go func() {
+
+		data := shared.Category{}
+		form := formulate.EditForm{}
+		form.New("fa-cubes", "Add New Category")
+
+		form.Row(1).AddInput(1, "Name", "Name")
+		form.Row(1).AddTextarea(1, "Description", "Descr")
+
+		// Add event handlers
+		form.CancelEvent(func(evt dom.Event) {
+			evt.PreventDefault()
+			Session.Navigate("/categories")
+		})
+
+		form.SaveEvent(func(evt dom.Event) {
+			evt.PreventDefault()
+			go func() {
+				form.Bind(&data)
+				err := restServer.Create(&data)
+				if err != nil {
+					print("REST create", err.Error())
+				} else {
+					Session.Navigate(fmt.Sprintf("/category/%d", data.ID))
+				}
+			}()
+		})
+
+		form.Render("edit-form", ".jass-main", &data)
+	}()
 }

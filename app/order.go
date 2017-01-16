@@ -17,7 +17,7 @@ func orderList(context *router.Context) {
 	go func() {
 
 		data := []shared.SaleOrder{}
-		err := apiServer.ReadAll(&data)
+		err := restServer.ReadAll(&data)
 		if err != nil {
 			print("REST error", err.Error())
 			return
@@ -53,7 +53,7 @@ func orderEdit(context *router.Context) {
 	go func() {
 
 		data := shared.SaleOrder{}
-		err := apiServer.Read(context.Params["id"], &data)
+		err := restServer.Read(context.Params["id"], &data)
 		if err != nil {
 			print("REST error", err.Error())
 			return

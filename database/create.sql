@@ -88,13 +88,14 @@ create table category (
 
 create table product (
 	id serial not null primary key,
+	cat_id int not null,
 	name text,
 	descr text,
 	image text,
-	volume_ml int,
-	weight_g int,
-	shipping_volume_ml int,
-	shipping_weight_g int,
+	volume_ml int default 0,
+	weight_g int default 0,
+	shipping_volume_ml int default 0,
+	shipping_weight_g int default 0,
 	shipping_code int
 );
 

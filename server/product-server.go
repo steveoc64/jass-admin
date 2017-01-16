@@ -119,7 +119,7 @@ func addProduct(c echo.Context) error {
 
 	id := 0
 	err := DB.InsertInto("product").
-		Whitelist("name", "descr", "image",
+		Whitelist("name", "cat_id", "descr", "image",
 			"volume_ml", "weight_g",
 			"shipping_volume_ml", "shipping_weight_g",
 			"shipping_code").

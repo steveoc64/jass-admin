@@ -29,6 +29,7 @@ func productList(context *router.Context) {
 		// Define the layout
 
 		form.Column("Name", "Name")
+		form.Column("Price", "Price")
 		form.ImgColumn("Image", "GetImageURL")
 		form.Column("Description", "Descr")
 
@@ -73,6 +74,7 @@ func productEdit(context *router.Context) {
 		form.Row(1).AddSelect(1, "Category", "CatID", cats, "ID", "Name", 1, 0)
 		form.Row(1).AddSelect(1, "Shipping Code", "ShippingCode", ships, "ID", "Name", 1, 0)
 		form.Row(1).AddInput(1, "Name", "Name")
+		form.Row(1).AddDecimal(1, "Price", "Price", 2, "1")
 		form.Row(1).AddInput(1, "Image", "Image")
 		form.Row(1).AddImage(1, "Image Preview", "ImageURL")
 

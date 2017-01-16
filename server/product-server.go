@@ -122,7 +122,7 @@ func addProduct(c echo.Context) error {
 		Whitelist("name", "cat_id", "descr", "image",
 			"volume_ml", "weight_g",
 			"shipping_volume_ml", "shipping_weight_g",
-			"shipping_code").
+			"shipping_code", "price").
 		Record(data).
 		Returning("id").
 		QueryScalar(&id)
@@ -142,7 +142,7 @@ func updateProduct(c echo.Context) error {
 		SetWhitelist(data, "name", "descr", "image",
 			"volume_ml", "weight_g",
 			"shipping_volume_ml", "shipping_weight_g",
-			"shipping_code").
+			"shipping_code", "price").
 		Where("id = $1", data.ID).
 		Exec()
 	if err != nil {
